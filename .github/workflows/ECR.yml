@@ -50,6 +50,9 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: 1.21
+    - name: make config
+      run: |
+        touch config.yaml
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
