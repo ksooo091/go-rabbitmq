@@ -12,7 +12,7 @@ func SendMail(email, mailType, senderMail,senderPass string) {
 	// 메일서버 로그인 정보 설정
 	auth := smtp.PlainAuth("", senderMail, senderPass, "smtp.gmail.com")
 
-	from := "hwanrim001@gmail.com"
+	from := senderMail
 	to := []string{email} // 복수 수신자 가능
 
 	// 메시지 작성
