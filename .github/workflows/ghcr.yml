@@ -8,8 +8,8 @@ on:
 
 
 permissions:
-  contents: write-all
-
+  contents: read
+  packages: write
 jobs:
   deploy:
     name: Deploy
