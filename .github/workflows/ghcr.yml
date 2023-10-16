@@ -1,0 +1,41 @@
+name: Deploy to ghcr
+
+on:
+#  push:
+#    branches: [ "main" ]
+  workflow_dispatch:
+
+
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Go 1.21
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.21
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build, tag, and push docker image to ghcr
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t app .
+        docker tag app ghcr.io/ksooo091/go-mail:$IMAGE_TAG
+        docker tag app ghcr.io/ksooo091/go-mail:latest
+        docker push ghcr.io/ksooo091/go-mail:$IMAGE_TAG
+        docker push ghcr.io/ksooo091/go-mail:latest
+
+
