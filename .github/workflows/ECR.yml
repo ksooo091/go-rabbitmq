@@ -1,16 +1,16 @@
 name: Deploy to Amazon ECR
 
 on:
-  push:
-    branches: [ "main" ]
-
+#  push:
+#    branches: [ "main" ]
+  workflow_dispatch:
 env:
-  AWS_REGION: "ap-northeast-2"                  # set this to your preferred AWS region, e.g. us-west-1
+  AWS_REGION: "ap-northeast-2"
 
 
 permissions:
   contents: read
-  id-token: write # This is required for requesting the JWT
+  id-token: write
 
 jobs:
   deploy:
@@ -19,13 +19,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Setup Go ${{ matrix.go-version }}
+    - name: Setup Go 1.21
       uses: actions/setup-go@v4
       with:
         go-version: 1.21
-    - name: make config
-      run: |
-        touch config.yaml
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4

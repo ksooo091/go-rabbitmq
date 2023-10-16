@@ -21,11 +21,16 @@ func failOnError(err error, msg string) {
 }
 
 func main() {
-	viper.SetConfigFile("config.yaml")
+	viper.SetConfigFile("config/config.yaml")
 	err := viper.ReadInConfig()
 	if err != nil {
 		fmt.Printf("Error reading config file: %s\n", err)
-		return
+		viper.SetConfigFile("config.yaml")
+		err = viper.ReadInConfig()
+		if err != nil {
+			fmt.Printf("Error reading config file: %s\n", err)
+			return
+		}
 	}
 
 	// 설정에서 값을 읽어옴

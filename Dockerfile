@@ -13,5 +13,5 @@ CMD ["/ksooo-study"]
 FROM alpine
 
 COPY --from=builder /ksooo-study /ksooo-echo
-COPY /config.yaml /config.yaml
+
 ENTRYPOINT ["/ksooo-echo"]
